@@ -3,8 +3,8 @@ This project demonstrates NESTED LOOPS (i.e., loops within loops)
 in the context of TWO-DIMENSIONAL GRAPHICS.
 
 Authors: David Mutchler, Valerie Galluzzi, Mark Hays, Amanda Stouder,
-         their colleagues and PUT_YOUR_NAME_HERE.
-"""  # TODO: 1. PUT YOUR NAME IN THE ABOVE LINE.
+         their colleagues and Harry Chen.
+"""  # DONE: 1. PUT YOUR NAME IN THE ABOVE LINE.
 
 import rosegraphics as rg
 
@@ -12,7 +12,7 @@ import rosegraphics as rg
 def main():
     """ Calls the other functions to demonstrate them. """
     run_test_draw_L()
-    run_test_draw_wall_on_right()
+    #run_test_draw_wall_on_right()
 
 
 def run_test_draw_L():
@@ -79,8 +79,48 @@ def draw_L(window, circle, r, c):
       :type c: int
     and m and n are small, positive integers.
     """
+    color = circle.fill_color
+    radius = circle.radius
+    ox = circle.center.x
+    oy = circle.center.y
+    # draw the column part:
+    for k in range(r):
+        x = ox
+        y = oy
+        for j in range(3):
+            center = rg.Point(x, y+(k*2*radius))
+            scircle = rg.Circle(center,radius)
+            scircle.fill_color = color
+            scircle.attach_to(window)
+            window.render(0.1)
+            x += 2*radius
+    # draw shared corner:
+    for k in range(3):
+        x = ox
+        y = oy+(r*2*radius)
+        for j in range(3):
+            center = rg.Point(x, y + (k*2*radius))
+            scircle = rg.Circle(center, radius)
+            scircle.fill_color = color
+            scircle.attach_to(window)
+            window.render(0.1)
+            x += 2 * radius
+    # draw row part:
+    for k in range(3):
+        x = ox+(6*radius)
+        y = oy+(r*2*radius)
+        for j in range(c):
+            center = rg.Point(x, y+(k*2*radius))
+            scircle = rg.Circle(center,radius)
+            scircle.fill_color = color
+            scircle.attach_to(window)
+            window.render(0.1)
+            x += 2*radius
+
+
+
     # ------------------------------------------------------------------
-    # TODO: 2. Implement and test this function.
+    # DONE: 2. Implement and test this function.
     #     The testing code is already written for you (above).
     # ------------------------------------------------------------------
 
